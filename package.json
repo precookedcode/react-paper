@@ -9,6 +9,14 @@
     "build": "tsc"
   },
   "author": "Roberto Carraro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/precookedcode/react-paper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/precookedcode/react-paper/issues"
+  },
+  "homepage": "https://github.com/precookedcode/react-paper#readme",
   "peerDependencies": {
     "react": "^18.3.1"
   },
