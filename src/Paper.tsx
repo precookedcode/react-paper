@@ -14,7 +14,7 @@ const Paper: React.FC<PaperProps> = ({ children, size = "md", style }) => {
         lg: { width: "250px", height: "320px" },
     };
 
-    const styles = createStyles();
+    const styles = createStyles(size); // Pasamos el tamaño actual para ajustar los estilos dinámicamente
 
     return (
         <div
@@ -25,29 +25,48 @@ const Paper: React.FC<PaperProps> = ({ children, size = "md", style }) => {
             }}
         >
             <div style={styles.topBar}></div>
-            <FoldedCorner size={size} />
+            <FoldedCorner size={size} style={styles.foldedCorner} />
             {children}
         </div>
     );
 };
 
-const createStyles = (): Record<string, React.CSSProperties> => ({
-    container: {
-        position: "relative",
-        backgroundColor: "#fff",
-        borderRadius: "20px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        padding: "10px",
-    },
-    topBar: {
-        position: "absolute",
-        top: "-10px",
-        left: "20px",
-        right: "0",
-        height: "20px",
-        backgroundColor: "#fff",
-        borderTopRightRadius: "20px",
-    },
-});
+// Función para crear estilos dinámicos según el tamaño
+const createStyles = (size: "sm" | "md" | "lg"): Record<string, React.CSSProperties> => {
+    const sizeValues = {
+        sm: 20,
+        md: 30,
+        lg: 40,
+    };
+
+    const dynamicValue = sizeValues[size]; // Obtiene el valor dinámico según el tamaño
+
+    return {
+        container: {
+            position: "relative",
+            backgroundColor: "#fff",
+            borderRadius: "0 0 20px 20px",
+            filter: "drop-shadow(0 2px 0 #ccc)",
+            padding: "10px",
+            boxSizing: "border-box",
+            marginTop: `${dynamicValue}px`, // Valor dinámico
+            display: "inline-block",
+        },
+        topBar: {
+            position: "absolute",
+            top: `-${dynamicValue}px`, // Valor dinámico
+            left: `${dynamicValue}px`, // Valor dinámico
+            right: "0",
+            height: `${dynamicValue}px`, // Valor dinámico
+            backgroundColor: "#fff",
+            borderTopRightRadius: "20px",
+        },
+        foldedCorner: {
+            position: "absolute",
+            top: `-${dynamicValue}px`, // Valor dinámico
+            left: 0,
+        },
+    };
+};
 
 export default Paper;
